@@ -1,6 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
+// importing media files
+import reactLogo from "./images/reactLogo.png";
+
 // const jsxElement = <h1>This is a JSX Element.</h1>
 const rootElement = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -12,23 +15,23 @@ const headerStyle = {
 };
 
 // Injecting data to JSX Elements.
-// const welcome = "Welcome to 30 Days of React";
-// const title = "Getting started React";
-// const subtitle = "Javascript Library";
-// const learner = {
-//     firstName: "Jai",
-//     lastName: "Hind",
-// };
+const welcome = "Welcome to 30 Days of React";
+const title = "Getting started React";
+const subtitle = "Javascript Library";
+const learner = {
+    firstName: "Jai",
+    lastName: "Hind",
+};
 
 const date = "Nov 6, 2023";
 
 const headerJSXElement = (
     <header style={headerStyle}>
-        <h1>Welcome to 30 Days of React</h1>
-        <h2>Getting started React</h2>
-        <h3>Javascript Library</h3>
-        <p>Jai Hind</p>
-        <small>Nov 6, 2023</small>
+        <h1>{welcome}</h1>
+        <h2>{title}</h2>
+        <h3>{subtitle}</h3>
+        <p>Learner: {learner.firstName} {learner.lastName}</p>
+        <small>{date}</small>
     </header>
 );
 
@@ -37,14 +40,43 @@ const mainStyle = {
     padding: 25,
 };
 
+const techs = ["HTML", "CSS", "Javascript"];
+const techsFormatted = techs.map((tech) => <li key={tech}>{tech}</li>)
+const numOne = 3;
+const numTwo = 6;
+const result = (
+    <p>
+        {numOne} + {numTwo} = {numOne + numTwo}
+    </p>
+);
+
+const yearBorn = 2000;
+const currentYear = new Date().getFullYear();
+const age = currentYear - yearBorn;
+const personAge = (
+    <p>
+        {" "}
+        {learner.firstName} {learner.lastName} is {age} years old.
+    </p>
+);
+const reactLogoJSX = (
+    <img src={reactLogo} alt="reactImg" />
+);
 const mainJSXElement = (
     <main style={mainStyle}>
-        <p>Prerequisite to get started react.js:</p>
+        <p>
+            Prerequisite to get started{" "}
+            <strong>
+                <em>react.js</em>
+            </strong>
+            :
+        </p>
         <ul>
-            <li>HTML</li>
-            <li>CSS</li>
-            <li>Javascript</li>
+            {techsFormatted}
         </ul>
+        {result}
+        {personAge}
+        {reactLogoJSX}
     </main>
 );
 
@@ -52,9 +84,12 @@ const footerStyle = {
     backgroundColor: "#61DBFB",
     padding: 25,
 }
+
+const copyright = "Copyright 2023";
+
 const footerJSXElement = (
     <footer style={footerStyle}>
-        <p>copyright 2023</p>
+        <p>{copyright}</p>
     </footer>
 );
 
