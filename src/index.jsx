@@ -15,16 +15,16 @@ const headerStyle = {
 };
 
 
-
 // Header Component
+// Object as Props.
 const Header = (props) => {
     return (
         <header style={headerStyle}>
-            <h1>{props.welcome}</h1>
-            <h2>{props.title}</h2>
-            <h3>{props.subtitle}</h3>
-            <p>{props.learner.firstName} {props.learner.lastName}</p>
-            <small>{props.date}</small>
+            <h1>{props.data.welcome}</h1>
+            <h2>{props.data.title}</h2>
+            <h3>{props.data.subtitle}</h3>
+            <p>{props.data.learner.firstName} {props.data.learner.lastName}</p>
+            <small>{props.data.date}</small>
         </header>
     );
 }
@@ -144,10 +144,15 @@ const Status = (props) => {
 
 // Arrays as props.
 const Skills = (props) => {
-    const skillsList = props.skills.map((skill) => <li>{skill}</li>)
+    const skillsList = props.skills.map((skill, index) => <li key={index}>{skill}</li>)
     return <ul>
         {skillsList}
     </ul>
+}
+
+// Function as props.
+const Button2 = (props) => {
+    return <button onClick={props.onClick}>{props.text}</button>
 }
 
 const App = () => {
@@ -162,6 +167,15 @@ const App = () => {
 
     const date = "Nov 6, 2023";
 
+    // Objecta as props value in component.
+    const data = {
+        welcome,
+        title,
+        subtitle,
+        learner,
+        date,
+    }
+
     // Numbers as props value in component.
     const currentYear = new Date().getFullYear();
     let birthYear = 2000;
@@ -175,15 +189,37 @@ const App = () => {
     age = currentYear - birthYear;
     const status = age >= 18;
 
+    // Function as props value in component.
+    function sayHi() {
+        return window.alert("HI");
+    }
+
+    function showDate(time) {
+        const months = [
+            "January", "Febraury", "March", "April", "May", "June", "July", "August", "September",
+            "Octobar", "November", "December",
+        ]
+
+        const month = months[time.getMonth()].slice(0, 3);
+        const date = time.getDate();
+        const year = time.getFullYear();
+        return `${month} ${date}, ${year}`;
+    }
+
+    function showDateAlert() {
+        return window.alert(showDate(new Date()));
+    }
+
     return (
         <div>
-            <Header 
+            {/* <Header 
                 welcome={welcome} // Adding props not statically and using variable as props.
                 title={title}     // Adding attributes to components like passing arguments to function call.
                 subtitle={subtitle}
                 learner={learner}
                 date={date}
-            />
+            /> */}
+            <Header data={data} />
             <Main />
             <HexaColor />
             <Footer />
@@ -191,6 +227,9 @@ const App = () => {
             <Weight weight={weight} />
             <Status status={status} />
             <Skills skills={["HTML", "CSS", "Javascript", "ReactJS"]} />
+            <Button2 onClick={sayHi} text={"say Hi"} />
+            <Button2 onClick={showDateAlert} text="Show Date" />
+
         </div>
     );
 };
