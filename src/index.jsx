@@ -18,13 +18,16 @@ const headerStyle = {
 // Header Component
 // Object as Props.
 const Header = (props) => {
+    // Destructering the props object
+    const {welcome, title, subtitle, learner, date} = props.data;
+    const {firstName, lastName} = learner;
     return (
         <header style={headerStyle}>
-            <h1>{props.data.welcome}</h1>
-            <h2>{props.data.title}</h2>
-            <h3>{props.data.subtitle}</h3>
-            <p>{props.data.learner.firstName} {props.data.learner.lastName}</p>
-            <small>{props.data.date}</small>
+            <h1>{welcome}</h1>
+            <h2>{title}</h2>
+            <h3>{subtitle}</h3>
+            <p>{firstName} {lastName}</p>
+            <small>{date}</small>
         </header>
     );
 }
@@ -37,9 +40,6 @@ const mainStyle = {
 };
 
 
-// const techs = ["HTML", "CSS", "Javascript"];
-// const techsFormatted = techs.map((tech) => <li key={tech}>{tech}</li>)
-
 const yearBorn = 2000;
 const currentYear = new Date().getFullYear();
 const age = currentYear - yearBorn;
@@ -49,27 +49,29 @@ const personAge = (
         {"Jai"} {"Hind"} is {age} years old.
     </p>
 );
-const reactLogoJSX = (
-    <img src={reactLogo} alt="reactImg" />
-);
 
-const TechList = () => {
-    const techs = ["HTML", "CSS", "Javascript"];
+
+const TechList = ({techs}) => {
     const techsFormatted = techs.map((tech) => <li key={tech}>{tech}</li>)
     return techsFormatted;
 };
 
-const UserCard = () => {
+const UserCard = ({user: {firstName, lastName, image}}) => {
     return (
         <div>
             {personAge}
-            {reactLogoJSX}
-            <h2>{"Jai"} {"Hind"}</h2>
+            <img src={image} alt="reactLogo" />
+            <h2>{firstName} {lastName}</h2>
         </div>
     );
 }
 
-const Main = () => {
+const Button2 = ({text, onClick, style}) => {
+    return <button style={style} onClick={onClick}>{text}</button>
+}
+
+// Main Component.
+const Main = ({user, techs, showDateAlert, greetUser}) => {
     return (
         <main style={mainStyle}>
             <p>Prerequisite to get started {" "}
@@ -78,9 +80,11 @@ const Main = () => {
                 </strong>
             </p>
             <ul>
-                <TechList />
+                <TechList techs={techs} />
             </ul>
-            <UserCard />
+            <UserCard user={user} />
+            <Button2 text="greet" onClick={greetUser} style={buttonStyle} />
+            <Button2 text="show date" onClick={showDateAlert} style={buttonStyle} />
         </main>
     );
 }
@@ -90,12 +94,11 @@ const footerStyle = {
     padding: 25,
 }
 
-const copyright = "2023";
-
-const Footer = () => {
+// Footer Component.
+const Footer = ({year}) => {
     return (
         <footer style={footerStyle}>
-            <p>Copyright &copy;{copyright}</p>
+            <p>Copyright &copy;{year}</p>
         </footer>
     );
 }
@@ -107,53 +110,7 @@ const buttonStyle = {
     borderRadius: 5,
     background: "rgb(0, 255, 0)",
 }
-const Button = () => <button style={buttonStyle}>Action</button>
 
-// Hexacolor generator.
-const hexacolorGenerator = () => {
-    let str = "0123456789abcdef";
-    let color = "";
-    for (let i = 0; i < 6; i += 1) {
-        let index = Math.floor(Math.random() * str.length);
-        color += str[index];
-    }
-    return "#" + color;
-}
-
-const HexaColor = () => {
-    return (
-        <div>
-            {hexacolorGenerator()}
-            <Button />
-        </div>
-    )
-}
-
-// Props Learning.
-// Numbers as Props.
-const Age = (props) => <div>The Person is {props.age} years old.</div> 
-const Weight = (props) => <p>The weight of the object on earth is {props.weight}N.</p>
-
-// Booleans as Props.
-const Status = (props) => {
-    let status = props.status ? "Old enough to drive" : "Too young for driving"
-    return <p>
-        {status}
-    </p>
-}
-
-// Arrays as props.
-const Skills = (props) => {
-    const skillsList = props.skills.map((skill, index) => <li key={index}>{skill}</li>)
-    return <ul>
-        {skillsList}
-    </ul>
-}
-
-// Function as props.
-const Button2 = (props) => {
-    return <button onClick={props.onClick}>{props.text}</button>
-}
 
 const App = () => {
     // Strings as props value in component.
@@ -165,7 +122,9 @@ const App = () => {
         lastName: "Hind",
     };
 
-    const date = "Nov 6, 2023";
+    const date = showDate(new Date());
+
+    const fullYear = new Date().getFullYear();
 
     // Objecta as props value in component.
     const data = {
@@ -176,22 +135,15 @@ const App = () => {
         date,
     }
 
-    // Numbers as props value in component.
-    const currentYear = new Date().getFullYear();
-    let birthYear = 2000;
-    let age = currentYear - birthYear;
-    const gravity = 9.81;
-    const mass = 69;
-    const weight = gravity * mass;
+    // Arrays as props value in component.
+    const techs = ["HTML", "CSS", "JavaScript"];
 
-    // Boolean as props value in component.
-    birthYear = 2018;
-    age = currentYear - birthYear;
-    const status = age >= 18;
+    // Objects as props value in component.
+    const userData = {...data.learner, image: reactLogo,};
 
     // Function as props value in component.
-    function sayHi() {
-        return window.alert("HI");
+    function greetUser() {
+        return window.alert("Welcome to 30 Days of ReactJS");
     }
 
     function showDate(time) {
@@ -212,24 +164,14 @@ const App = () => {
 
     return (
         <div>
-            {/* <Header 
-                welcome={welcome} // Adding props not statically and using variable as props.
-                title={title}     // Adding attributes to components like passing arguments to function call.
-                subtitle={subtitle}
-                learner={learner}
-                date={date}
-            /> */}
             <Header data={data} />
-            <Main />
-            <HexaColor />
-            <Footer />
-            <Age age={age} />
-            <Weight weight={weight} />
-            <Status status={status} />
-            <Skills skills={["HTML", "CSS", "Javascript", "ReactJS"]} />
-            <Button2 onClick={sayHi} text={"say Hi"} />
-            <Button2 onClick={showDateAlert} text="Show Date" />
-
+            <Main 
+                user={userData}
+                techs={techs}
+                showDateAlert={showDateAlert}
+                greetUser={greetUser}
+            />
+            <Footer year={fullYear}/>
         </div>
     );
 };
