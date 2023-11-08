@@ -14,25 +14,17 @@ const headerStyle = {
     lineHeight: 1.5,
 };
 
-// Injecting data to JSX Elements in React Components.
-const welcome = "Welcome to 30 Days of React";
-const title = "Getting started React";
-const subtitle = "Javascript Library";
-const learner = {
-    firstName: "Jai",
-    lastName: "Hind",
-};
 
-const date = "Nov 6, 2023";
 
-const Header = () => {
+// Header Component
+const Header = (props) => {
     return (
         <header style={headerStyle}>
-            <h1>{welcome}</h1>
-            <h2>{title}</h2>
-            <h3>{subtitle}</h3>
-            <p>{learner.firstName} {learner.lastName}</p>
-            <small>{date}</small>
+            <h1>{props.welcome}</h1>
+            <h2>{props.title}</h2>
+            <h3>{props.subtitle}</h3>
+            <p>{props.learner.firstName} {props.learner.lastName}</p>
+            <small>{props.date}</small>
         </header>
     );
 }
@@ -54,7 +46,7 @@ const age = currentYear - yearBorn;
 const personAge = (
     <p>
         {" "}
-        {learner.firstName} {learner.lastName} is {age} years old.
+        {"Jai"} {"Hind"} is {age} years old.
     </p>
 );
 const reactLogoJSX = (
@@ -72,7 +64,7 @@ const UserCard = () => {
         <div>
             {personAge}
             {reactLogoJSX}
-            <h2>{learner.firstName} {learner.lastName}</h2>
+            <h2>{"Jai"} {"Hind"}</h2>
         </div>
     );
 }
@@ -124,9 +116,6 @@ const hexacolorGenerator = () => {
     for (let i = 0; i < 6; i += 1) {
         let index = Math.floor(Math.random() * str.length);
         color += str[index];
-        console.log(str);
-        console.log(index);
-        console.log(color);
     }
     return "#" + color;
 }
@@ -140,13 +129,68 @@ const HexaColor = () => {
     )
 }
 
+// Props Learning.
+// Numbers as Props.
+const Age = (props) => <div>The Person is {props.age} years old.</div> 
+const Weight = (props) => <p>The weight of the object on earth is {props.weight}N.</p>
+
+// Booleans as Props.
+const Status = (props) => {
+    let status = props.status ? "Old enough to drive" : "Too young for driving"
+    return <p>
+        {status}
+    </p>
+}
+
+// Arrays as props.
+const Skills = (props) => {
+    const skillsList = props.skills.map((skill) => <li>{skill}</li>)
+    return <ul>
+        {skillsList}
+    </ul>
+}
+
 const App = () => {
+    // Strings as props value in component.
+    const welcome = "Welcome to 30 Days of React";
+    const title = "Getting started React";
+    const subtitle = "Javascript Library";
+    const learner = {
+        firstName: "Jai",
+        lastName: "Hind",
+    };
+
+    const date = "Nov 6, 2023";
+
+    // Numbers as props value in component.
+    const currentYear = new Date().getFullYear();
+    let birthYear = 2000;
+    let age = currentYear - birthYear;
+    const gravity = 9.81;
+    const mass = 69;
+    const weight = gravity * mass;
+
+    // Boolean as props value in component.
+    birthYear = 2018;
+    age = currentYear - birthYear;
+    const status = age >= 18;
+
     return (
         <div>
-            <Header />
+            <Header 
+                welcome={welcome} // Adding props not statically and using variable as props.
+                title={title}     // Adding attributes to components like passing arguments to function call.
+                subtitle={subtitle}
+                learner={learner}
+                date={date}
+            />
             <Main />
             <HexaColor />
             <Footer />
+            <Age age={age} />
+            <Weight weight={weight} />
+            <Status status={status} />
+            <Skills skills={["HTML", "CSS", "Javascript", "ReactJS"]} />
         </div>
     );
 };
