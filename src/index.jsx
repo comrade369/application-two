@@ -274,6 +274,7 @@
 // CLASS COMPONENTS IN REACT.
 import React from "react";
 import ReactDOM from "react-dom/client";
+import reactLogo from "./images/reactLogo.png";
 
 const rootElement = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -307,17 +308,52 @@ class ClassTechs extends React.Component {
     }
 }
 
+class User extends React.Component {
+    render() {
+        const {user} = this.props;
+        const {firstName, lastName, image} = user;
+        return (
+            <div>
+                <p>
+                    My Name is {firstName} {lastName}
+                </p>
+                <img src={image} alt="reactLogo" />
+            </div>
+        )
+    }
+}
+
+class Button extends React.Component {
+    render() {
+        const {onClick, text, style} = this.props;
+        return (
+            <button onClick={onClick} style={style}>{text}</button>
+        )
+    }
+}
+
+const buttonStyle = {
+    padding: 12,
+    background: "lightgreen",
+    borderRadius: 5,
+    border: "none",
+}
+
 class ClassMain extends React.Component {
 
 
     render() {
-        const {techs} = this.props;
+        const {techs, greetPeople, showDate, user} = this.props;
         return (
             <main>
                 <p>Prerequisite to get started react.js:</p>
                 <ul>
                     <ClassTechs techs={techs}/>
                 </ul>
+                <User  user={user}/>
+                <Button onClick={greetPeople} text="greetPeople" style={buttonStyle} />
+                <p></p>
+                <Button onClick={showDate} text="showDate" style={buttonStyle} />
             </main>
         )
     }
@@ -337,6 +373,15 @@ class ClassFooter extends React.Component {
 }
 
 class ClassApp extends React.Component {
+
+    greetPeople() {
+        window.alert("Welcome to 30 Days of React");
+    }
+
+    showDate() {
+        window.alert(new Date().toLocaleDateString());
+    }
+    
     render() {
         const date = new Date();
 
@@ -349,14 +394,21 @@ class ClassApp extends React.Component {
             date: date.getFullYear(),
         }
 
+        const user = {...data.learner, image: reactLogo};
+
         // ClassMain component props.
         const techs = ["HTML", "CSS", "Javascript"];
 
         return (
             <div>
-                <ClassHeader data={data}/>
-                <ClassMain techs={techs}/>
-                <ClassFooter date={date}/>
+                <ClassHeader data={data} />
+                <ClassMain 
+                    techs={techs}
+                    greetPeople={this.greetPeople}
+                    showDate={this.showDate}
+                    user={user}
+                />
+                <ClassFooter date={date} />
             </div>
         )
     }
