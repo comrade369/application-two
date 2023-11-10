@@ -182,91 +182,173 @@
 //     <App />
 // );
 
-// Rendering and Mapping Arrays.
+// // Rendering and Mapping Arrays.
+// import React from "react";
+// import ReactDOM from "react-dom/client";
+
+// const rootElement = ReactDOM.createRoot(document.getElementById("root"));
+
+// // Mapping an Array of Numbers.
+// const Numbers = ({numbers}) => {
+//     let result = numbers.map((number) => <li>{number}</li>)
+//     return result;
+// }
+
+// const App = () => {
+//     const numbers = [1, 2, 3, 4];
+
+//     return (
+//         <div>
+//             <h1>Numbers list</h1>
+//             <ul>
+//                 <Numbers numbers={numbers}/>
+//             </ul>
+//         </div>
+//     );
+// }
+
+// // Mapping Arrays of Arrays.
+// const skills = [
+//     ["HTML", 3],
+//     ["CSS", 2],
+//     ["Javascript", 6],
+//     ["React", 2],
+// ]
+
+// const Skill = (props) => {
+//     const {skill} = props;
+//     const [tech, level] = skill;
+//     return <li>{tech} {level}</li>
+// } 
+
+// const Skills = (props) => {
+//     const {skills} = props;
+//     console.log(skills);
+//     const skillsList = skills.map((skill) => <Skill skill={skill} />);
+//     console.log(skillsList);
+//     return <ul>{skillsList}</ul>
+// }
+
+// const App2 = () => {
+//     return <div>
+//         <h1>Skills Level</h1>
+//         <Skills skills={skills} />
+//     </div>
+// }
+
+// // Mapping Arrays of Objects.
+// const countries = [
+//     {name: "India", city: "New Delhi"},
+//     {name: "Srilanka", city: "Colombo"},
+//     {name: "Japan", city: "Tokyo"},
+//     {name: "Russia", city: "Kemrlin"},
+//     {name: "South Korea", city: "Soeul"},
+// ];
+
+// const Country = (props) => {
+//     const {country} = props;
+//     const {name, city} = country;
+//     return <div>
+//         <h1>{name}</h1>
+//         <small>{city}</small>
+//     </div>
+// }
+
+// // Add key in mapping to prevent error in browser.
+// const Countries = (props) => {
+//     const {countries} = props;
+//     const countriesList = countries.map((country, index) => <Country key={index} country={country} />)
+//     return <div>{countriesList}</div>
+// }
+
+// const App3 = () => {
+//     return <div>
+//         <h1>Countries List</h1>
+//         <Countries countries={countries} />
+//     </div>
+// }
+
+// rootElement.render(<App3 />);
+
+
+// CLASS COMPONENTS IN REACT.
 import React from "react";
 import ReactDOM from "react-dom/client";
 
 const rootElement = ReactDOM.createRoot(document.getElementById("root"));
 
-// Mapping an Array of Numbers.
-const Numbers = ({numbers}) => {
-    let result = numbers.map((number) => <li>{number}</li>)
-    return result;
+// class component for Header.
+class ClassHeader extends React.Component {
+    constructor(props) {
+        super(props)
+    }
+
+    render() {
+        return (
+            <header>
+                <h1>Welcome to 30 days of react.js</h1>
+                <h2>Getting started React</h2>
+                <h3>Javascript Library</h3>
+                <p>Jai Hind</p>
+                <small>Nov 10, 2023</small>
+            </header>
+        )
+    }
 }
 
-const App = () => {
-    const numbers = [1, 2, 3, 4];
+class ClassTechs extends React.Component {
+    constructor(props) {
+        super(props)
+    }
 
-    return (
-        <div>
-            <h1>Numbers list</h1>
-            <ul>
-                <Numbers numbers={numbers}/>
-            </ul>
-        </div>
-    );
+    render() {
+        const techs = ["HTML", "CSS", "Javascript"];
+        const techList = techs.map((tech) => <li>{tech}</li>)
+        return techList;
+    }
 }
 
-// Mapping Arrays of Arrays.
-const skills = [
-    ["HTML", 3],
-    ["CSS", 2],
-    ["Javascript", 6],
-    ["React", 2],
-]
+class ClassMain extends React.Component {
+    constructor(props) {
+        super(props)
+    }
 
-const Skill = (props) => {
-    const {skill} = props;
-    const [tech, level] = skill;
-    return <li>{tech} {level}</li>
-} 
-
-const Skills = (props) => {
-    const {skills} = props;
-    console.log(skills);
-    const skillsList = skills.map((skill) => <Skill skill={skill} />);
-    console.log(skillsList);
-    return <ul>{skillsList}</ul>
+    render() {
+        return (
+            <main>
+                <p>Prerequisite to get started react.js</p>
+                <ul>
+                    <ClassTechs />
+                </ul>
+            </main>
+        )
+    }
 }
 
-const App2 = () => {
-    return <div>
-        <h1>Skills Level</h1>
-        <Skills skills={skills} />
-    </div>
+class ClassFooter extends React.Component {
+    constructor(props) {
+        super(props)
+    }
+
+    render() {
+        return (
+            <footer>
+                <p>Copyright &copy;2023</p>
+            </footer>
+        )
+    }
 }
 
-// Mapping Arrays of Objects.
-const countries = [
-    {name: "India", city: "New Delhi"},
-    {name: "Srilanka", city: "Colombo"},
-    {name: "Japan", city: "Tokyo"},
-    {name: "Russia", city: "Kemrlin"},
-    {name: "South Korea", city: "Soeul"},
-];
-
-const Country = (props) => {
-    const {country} = props;
-    const {name, city} = country;
-    return <div>
-        <h1>{name}</h1>
-        <small>{city}</small>
-    </div>
+class ClassApp extends React.Component {
+    render() {
+        return (
+            <div>
+                <ClassHeader />
+                <ClassMain />
+                <ClassFooter />
+            </div>
+        )
+    }
 }
 
-// Add key in mapping to prevent error in browser.
-const Countries = (props) => {
-    const {countries} = props;
-    const countriesList = countries.map((country, index) => <Country key={index} country={country} />)
-    return <div>{countriesList}</div>
-}
-
-const App3 = () => {
-    return <div>
-        <h1>Countries List</h1>
-        <Countries countries={countries} />
-    </div>
-}
-
-rootElement.render(<App3 />);
-
+rootElement.render(<ClassApp />);
