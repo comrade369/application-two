@@ -279,46 +279,44 @@ const rootElement = ReactDOM.createRoot(document.getElementById("root"));
 
 // class component for Header.
 class ClassHeader extends React.Component {
-    constructor(props) {
-        super(props)
-    }
+
 
     render() {
+        const {data} = this.props;
+        const {welcome, title, subtitle, learner, date} = data;
+        const {firstName, lastName} = learner;
         return (
             <header>
-                <h1>Welcome to 30 days of react.js</h1>
-                <h2>Getting started React</h2>
-                <h3>Javascript Library</h3>
-                <p>Jai Hind</p>
-                <small>Nov 10, 2023</small>
+                <h1>{welcome}</h1>
+                <h2>{title}</h2>
+                <h3>{subtitle}</h3>
+                <p>{firstName} {lastName}</p>
+                <small>{date}</small>
             </header>
         )
     }
 }
 
 class ClassTechs extends React.Component {
-    constructor(props) {
-        super(props)
-    }
+
 
     render() {
-        const techs = ["HTML", "CSS", "Javascript"];
-        const techList = techs.map((tech) => <li>{tech}</li>)
+        const {techs} = this.props;
+        const techList = techs.map((tech, index) => <li key={index}>{tech}</li>)
         return techList;
     }
 }
 
 class ClassMain extends React.Component {
-    constructor(props) {
-        super(props)
-    }
+
 
     render() {
+        const {techs} = this.props;
         return (
             <main>
-                <p>Prerequisite to get started react.js</p>
+                <p>Prerequisite to get started react.js:</p>
                 <ul>
-                    <ClassTechs />
+                    <ClassTechs techs={techs}/>
                 </ul>
             </main>
         )
@@ -326,14 +324,13 @@ class ClassMain extends React.Component {
 }
 
 class ClassFooter extends React.Component {
-    constructor(props) {
-        super(props)
-    }
 
     render() {
+        const {date} = this.props;
+
         return (
             <footer>
-                <p>Copyright &copy;2023</p>
+                <p>Copyright &copy;{date.getFullYear()}</p>
             </footer>
         )
     }
@@ -341,11 +338,25 @@ class ClassFooter extends React.Component {
 
 class ClassApp extends React.Component {
     render() {
+        const date = new Date();
+
+        // ClassHeader component props.
+        const data = {
+            welcome: "Welcome to 30 Days of ReactJS",
+            title: "Getting Started React",
+            subtitle: "Javascript Library",
+            learner: {firstName: "Jai", lastName: "Hind"},
+            date: date.getFullYear(),
+        }
+
+        // ClassMain component props.
+        const techs = ["HTML", "CSS", "Javascript"];
+
         return (
             <div>
-                <ClassHeader />
-                <ClassMain />
-                <ClassFooter />
+                <ClassHeader data={data}/>
+                <ClassMain techs={techs}/>
+                <ClassFooter date={date}/>
             </div>
         )
     }
