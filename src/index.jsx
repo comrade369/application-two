@@ -420,16 +420,204 @@
 // States for Class Components in ReactJS.
 import React from "react";
 import ReactDOM from "react-dom/client";
+import reactLogo from "./images/reactLogo.png";
 
 const rootElement = ReactDOM.createRoot(document.getElementById("root"));
 
-class HeaderClass extends React.Component {
-    // creating state obj in class component.
-    state = {
-        count: 0,
+// class HeaderClass extends React.Component {
+//     // creating state obj in class component.
+//     state = {
+//         count: 0,
+//     }
+
+//     // Creating Methods in a component.
+//     addOne = () => {
+//         this.setState({count: this.state.count + 1})
+//     }
+
+//     minusOne = () => {
+//         this.setState({count: this.state.count - 1})
+//     }
+
+//     render() {
+//         const {count} = this.state;
+
+//         // Resetting state using javascript method this.setState();
+//         return (
+//             <div>
+//                 <h1>{count}</h1>
+//                 {/* Inline Methods || anonymous Methods 
+//                 <button onClick={() => this.setState({count: count + 1})}>Add One</button>
+//                 {" "}
+//                 <button onClick={() => this.setState({count: count - 1})}>Minus One</button> */}
+//                 <button onClick={this.addOne}>Add One</button>
+//                 {" "}
+//                 <button onClick={this.minusOne}>Minus One</button>
+//             </div>
+//         )
+//     }
+// }
+
+// class App extends React.Component {
+//     state = {
+//         image: "https://static.onecms.io/wp-content/uploads/sites/12/2015/04/dogs-pembroke-welsh-corgi-400x400.jpg",
+//     }
+
+//     changeImage = () => {
+//         let dog = "https://static.onecms.io/wp-content/uploads/sites/12/2015/04/dogs-pembroke-welsh-corgi-400x400.jpg";
+//         let cat = "https://cdn.pixabay.com/photo/2014/11/30/14/11/cat-551554_640.jpg";
+//         let image = (this.state.image === dog ? cat : dog);
+//         this.setState({image: image});
+//     }
+
+//     render() {
+//         return (
+//             <div>
+//                 <h1>Welcome 30 Days of ReactJS</h1>
+//                 <div>
+//                     <img src={this.state.image} alt="animalImage" />
+//                 </div>
+//                 <button onClick={this.changeImage}>Change Image</button>
+//             </div>
+//         )
+//     }
+// }
+
+// All Components together using state Object.
+class HeaderComponent extends React.Component {
+    render() {
+        const {data} = this.props;
+        const {welcome, title, subtitle, learner, date} = data;
+        return (
+            <header>
+                <div>
+                    <h1>{welcome}</h1>
+                    <h2>{title}</h2>
+                    <h3>{subtitle}</h3>
+                    <p>{learner.firstName} {learner.lastName}</p>
+                    <small>{date}</small>
+                </div>
+            </header>
+        )
+    }
+}
+
+// subcomponents in Main Component.
+class Techs extends React.Component {
+    render() {
+        const {techs} = this.props;
+        const techList = techs.map((tech, index) => <li key={index}>{tech}</li>)
+        return techList;
+    }
+}
+
+class Learner extends React.Component {
+    render() {
+        const {learner} = this.props;
+        const {firstName, lastName, image} = learner;
+        return (
+            <div>
+                <p>
+                    My Name is <strong><em>{firstName} {lastName}</em></strong>.
+                </p>
+                <img src={image} alt="reactLogo" />
+                <br></br>
+                <small>{firstName} {lastName}</small>
+            </div>
+        )
+    }
+}
+
+const buttonStyles = {
+    backgroundColor: "lightgreen",
+    borderRadius: 3,
+}
+
+class Button extends React.Component {
+    render() {
+        const {onClick, text, styles} = this.props;
+        return (
+            <button onClick={onClick} style={styles}>{text}</button>
+        )
+    }
+}
+
+class Count extends React.Component {
+    render() {
+        const {addOne, minusOne, count} = this.props;
+        return <div>
+            <h1>{count}</h1>
+            <Button onClick={addOne} text={"+1"} styles={buttonStyles} />
+            {" "}
+            <Button onClick={minusOne} text={"-1"} styles={buttonStyles} />
+        </div>
+    }
+}
+class MainComponent extends React.Component {
+    render() {
+        const {techs, learner, greetPeople, handleTime, addOne, minusOne, count, changeBackground} = this.props;
+        return (
+            <main>
+                <div>
+                    <p>Prerequisites for learning <strong><em>React.js</em></strong></p>
+                    <ul>
+                        <Techs techs={techs} />
+                    </ul>
+                </div>
+                <Learner learner={learner} />
+                <Button onClick={greetPeople} text="Greet People" styles={buttonStyles}/>
+                {" "}
+                <Button onClick={handleTime} text="Handle Time" styles={buttonStyles}/>
+                {" "}
+                <Button onClick={changeBackground} text="Change Background" styles={buttonStyles} />
+                <div>
+                    <Count addOne={addOne} minusOne={minusOne} count={count} />
+                </div>
+            </main>
+        )
+    }
+}
+
+class FooterComponent extends React.Component {
+    render() {
+        const {date} = this.props;
+        return (
+            <footer>
+                <div>Copyright &copy;{date.getFullYear()}</div>
+            </footer>
+        )
+    }
+}
+
+class App extends React.Component {
+    showDate = (time) => {
+        const months = [
+            "January", "Febraury", "March", "April", "May", "June", "July", "August", "September",
+            "Octobar", "November", "December",
+        ]
+
+        const month = months[time.getMonth()].slice(0, 3);
+        const date = time.getDate();
+        const year = time.getFullYear();
+        return `${month} ${date}, ${year}`;
+    }
+    // Methods using as props value in Main component.
+    greetPeople = () => {
+        window.alert("Welcome to 30 Days of React.js");
     }
 
-    // Creating Methods in a component.
+    handleTime = () => {
+        window.alert(this.showDate(new Date()));
+    }
+
+    state = {
+        count: 0,
+        styles: {
+            backgroundColor: "yellow",
+            color: "red",
+        }
+    }
+
     addOne = () => {
         this.setState({count: this.state.count + 1})
     }
@@ -438,45 +626,35 @@ class HeaderClass extends React.Component {
         this.setState({count: this.state.count - 1})
     }
 
-    render() {
-        const {count} = this.state;
+    changeBackground = () => {}
 
-        // Resetting state using javascript method this.setState();
-        return (
-            <div>
-                <h1>{count}</h1>
-                {/* Inline Methods || anonymous Methods 
-                <button onClick={() => this.setState({count: count + 1})}>Add One</button>
-                {" "}
-                <button onClick={() => this.setState({count: count - 1})}>Minus One</button> */}
-                <button onClick={this.addOne}>Add One</button>
-                {" "}
-                <button onClick={this.minusOne}>Minus One</button>
-            </div>
-        )
-    }
-}
-
-class App extends React.Component {
-    state = {
-        image: "https://static.onecms.io/wp-content/uploads/sites/12/2015/04/dogs-pembroke-welsh-corgi-400x400.jpg",
-    }
-
-    changeImage = () => {
-        let dog = "https://static.onecms.io/wp-content/uploads/sites/12/2015/04/dogs-pembroke-welsh-corgi-400x400.jpg";
-        let cat = "https://cdn.pixabay.com/photo/2014/11/30/14/11/cat-551554_640.jpg";
-        let image = (this.state.image === dog ? cat : dog);
-        this.setState({image: image});
-    }
 
     render() {
+        // data variable Obj passing props value for Header component.
+        const data = {
+            welcome: "Welcome to 30 Days of ReactJS",
+            title: "Getting started ReactJS",
+            subtitle: "Javascript Library",
+            learner: {firstName: "Jai", lastName: "Hind"},
+            date: this.showDate(new Date()),
+        }
+
+        // date variable passing as props value for Footer component.
+        const date = new Date();
+
+        // some of variables passing as props value for Main component.
+        const techs = ["HTML", "CSS", "Javascript"];
+        const learner = {...data.learner, image: reactLogo};
+
         return (
-            <div>
-                <h1>Welcome 30 Days of ReactJS</h1>
-                <div>
-                    <img src={this.state.image} alt="animalImage" />
-                </div>
-                <button onClick={this.changeImage}>Change Image</button>
+            <div style={this.state.styles}>
+                
+                <HeaderComponent data={data} />
+                <MainComponent techs={techs} learner={learner} 
+                    greetPeople={this.greetPeople} handleTime={this.handleTime}
+                    addOne={this.addOne} minusOne={this.minusOne} count={this.state.count} 
+                    changeBackground={this.changeBackground} />
+                <FooterComponent date={date} />
             </div>
         )
     }
