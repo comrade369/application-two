@@ -457,4 +457,28 @@ class HeaderClass extends React.Component {
     }
 }
 
-rootElement.render(<HeaderClass />);
+class App extends React.Component {
+    state = {
+        image: "https://static.onecms.io/wp-content/uploads/sites/12/2015/04/dogs-pembroke-welsh-corgi-400x400.jpg",
+    }
+
+    changeImage = () => {
+        let dog = "https://static.onecms.io/wp-content/uploads/sites/12/2015/04/dogs-pembroke-welsh-corgi-400x400.jpg";
+        let cat = "https://cdn.pixabay.com/photo/2014/11/30/14/11/cat-551554_640.jpg";
+        let image = (this.state.image === dog ? cat : dog);
+        this.setState({image: image});
+    }
+
+    render() {
+        return (
+            <div>
+                <h1>Welcome 30 Days of ReactJS</h1>
+                <div>
+                    <img src={this.state.image} alt="animalImage" />
+                </div>
+                <button onClick={this.changeImage}>Change Image</button>
+            </div>
+        )
+    }
+}
+rootElement.render(<App />);
