@@ -271,147 +271,190 @@
 // rootElement.render(<App3 />);
 
 
-// CLASS COMPONENTS IN REACT.
+// // CLASS COMPONENTS IN REACT.
+// import React from "react";
+// import ReactDOM from "react-dom/client";
+// import reactLogo from "./images/reactLogo.png";
+
+// const rootElement = ReactDOM.createRoot(document.getElementById("root"));
+
+// // class component for Header.
+// class ClassHeader extends React.Component {
+
+
+//     render() {
+//         const {data} = this.props;
+//         const {welcome, title, subtitle, learner, date} = data;
+//         const {firstName, lastName} = learner;
+//         return (
+//             <header>
+//                 <h1>{welcome}</h1>
+//                 <h2>{title}</h2>
+//                 <h3>{subtitle}</h3>
+//                 <p>{firstName} {lastName}</p>
+//                 <small>{date}</small>
+//             </header>
+//         )
+//     }
+// }
+
+// class ClassTechs extends React.Component {
+
+
+//     render() {
+//         const {techs} = this.props;
+//         const techList = techs.map((tech, index) => <li key={index}>{tech}</li>)
+//         return techList;
+//     }
+// }
+
+// class User extends React.Component {
+//     render() {
+//         const {user} = this.props;
+//         const {firstName, lastName, image} = user;
+//         return (
+//             <div>
+//                 <p>
+//                     My Name is {firstName} {lastName}
+//                 </p>
+//                 <img src={image} alt="reactLogo" />
+//             </div>
+//         )
+//     }
+// }
+
+// class Button extends React.Component {
+//     render() {
+//         const {onClick, text, style} = this.props;
+//         return (
+//             <button onClick={onClick} style={style}>{text}</button>
+//         )
+//     }
+// }
+
+// const buttonStyle = {
+//     padding: 12,
+//     background: "lightgreen",
+//     borderRadius: 5,
+//     border: "none",
+// }
+
+// class ClassMain extends React.Component {
+
+
+//     render() {
+//         const {techs, greetPeople, showDate, user} = this.props;
+//         return (
+//             <main>
+//                 <p>Prerequisite to get started react.js:</p>
+//                 <ul>
+//                     <ClassTechs techs={techs}/>
+//                 </ul>
+//                 <User  user={user}/>
+//                 <Button onClick={greetPeople} text="greetPeople" style={buttonStyle} />
+//                 <p></p>
+//                 <Button onClick={showDate} text="showDate" style={buttonStyle} />
+//             </main>
+//         )
+//     }
+// }
+
+// class ClassFooter extends React.Component {
+
+//     render() {
+//         const {date} = this.props;
+
+//         return (
+//             <footer>
+//                 <p>Copyright &copy;{date.getFullYear()}</p>
+//             </footer>
+//         )
+//     }
+// }
+
+// class ClassApp extends React.Component {
+
+//     greetPeople() {
+//         window.alert("Welcome to 30 Days of React");
+//     }
+
+//     showDate() {
+//         window.alert(new Date().toLocaleDateString());
+//     }
+    
+//     render() {
+//         const date = new Date();
+
+//         // ClassHeader component props.
+//         const data = {
+//             welcome: "Welcome to 30 Days of ReactJS",
+//             title: "Getting Started React",
+//             subtitle: "Javascript Library",
+//             learner: {firstName: "Jai", lastName: "Hind"},
+//             date: date.getFullYear(),
+//         }
+
+//         const user = {...data.learner, image: reactLogo};
+
+//         // ClassMain component props.
+//         const techs = ["HTML", "CSS", "Javascript"];
+
+//         return (
+//             <div>
+//                 <ClassHeader data={data} />
+//                 <ClassMain 
+//                     techs={techs}
+//                     greetPeople={this.greetPeople}
+//                     showDate={this.showDate}
+//                     user={user}
+//                 />
+//                 <ClassFooter date={date} />
+//             </div>
+//         )
+//     }
+// }
+
+// rootElement.render(<ClassApp />);
+
+
+// States for Class Components in ReactJS.
 import React from "react";
 import ReactDOM from "react-dom/client";
-import reactLogo from "./images/reactLogo.png";
 
 const rootElement = ReactDOM.createRoot(document.getElementById("root"));
 
-// class component for Header.
-class ClassHeader extends React.Component {
-
-
-    render() {
-        const {data} = this.props;
-        const {welcome, title, subtitle, learner, date} = data;
-        const {firstName, lastName} = learner;
-        return (
-            <header>
-                <h1>{welcome}</h1>
-                <h2>{title}</h2>
-                <h3>{subtitle}</h3>
-                <p>{firstName} {lastName}</p>
-                <small>{date}</small>
-            </header>
-        )
+class HeaderClass extends React.Component {
+    // creating state obj in class component.
+    state = {
+        count: 0,
     }
-}
 
-class ClassTechs extends React.Component {
-
-
-    render() {
-        const {techs} = this.props;
-        const techList = techs.map((tech, index) => <li key={index}>{tech}</li>)
-        return techList;
+    // Creating Methods in a component.
+    addOne = () => {
+        this.setState({count: this.state.count + 1})
     }
-}
 
-class User extends React.Component {
+    minusOne = () => {
+        this.setState({count: this.state.count - 1})
+    }
+
     render() {
-        const {user} = this.props;
-        const {firstName, lastName, image} = user;
+        const {count} = this.state;
+
+        // Resetting state using javascript method this.setState();
         return (
             <div>
-                <p>
-                    My Name is {firstName} {lastName}
-                </p>
-                <img src={image} alt="reactLogo" />
+                <h1>{count}</h1>
+                {/* Inline Methods || anonymous Methods 
+                <button onClick={() => this.setState({count: count + 1})}>Add One</button>
+                {" "}
+                <button onClick={() => this.setState({count: count - 1})}>Minus One</button> */}
+                <button onClick={this.addOne}>Add One</button>
+                {" "}
+                <button onClick={this.minusOne}>Minus One</button>
             </div>
         )
     }
 }
 
-class Button extends React.Component {
-    render() {
-        const {onClick, text, style} = this.props;
-        return (
-            <button onClick={onClick} style={style}>{text}</button>
-        )
-    }
-}
-
-const buttonStyle = {
-    padding: 12,
-    background: "lightgreen",
-    borderRadius: 5,
-    border: "none",
-}
-
-class ClassMain extends React.Component {
-
-
-    render() {
-        const {techs, greetPeople, showDate, user} = this.props;
-        return (
-            <main>
-                <p>Prerequisite to get started react.js:</p>
-                <ul>
-                    <ClassTechs techs={techs}/>
-                </ul>
-                <User  user={user}/>
-                <Button onClick={greetPeople} text="greetPeople" style={buttonStyle} />
-                <p></p>
-                <Button onClick={showDate} text="showDate" style={buttonStyle} />
-            </main>
-        )
-    }
-}
-
-class ClassFooter extends React.Component {
-
-    render() {
-        const {date} = this.props;
-
-        return (
-            <footer>
-                <p>Copyright &copy;{date.getFullYear()}</p>
-            </footer>
-        )
-    }
-}
-
-class ClassApp extends React.Component {
-
-    greetPeople() {
-        window.alert("Welcome to 30 Days of React");
-    }
-
-    showDate() {
-        window.alert(new Date().toLocaleDateString());
-    }
-    
-    render() {
-        const date = new Date();
-
-        // ClassHeader component props.
-        const data = {
-            welcome: "Welcome to 30 Days of ReactJS",
-            title: "Getting Started React",
-            subtitle: "Javascript Library",
-            learner: {firstName: "Jai", lastName: "Hind"},
-            date: date.getFullYear(),
-        }
-
-        const user = {...data.learner, image: reactLogo};
-
-        // ClassMain component props.
-        const techs = ["HTML", "CSS", "Javascript"];
-
-        return (
-            <div>
-                <ClassHeader data={data} />
-                <ClassMain 
-                    techs={techs}
-                    greetPeople={this.greetPeople}
-                    showDate={this.showDate}
-                    user={user}
-                />
-                <ClassFooter date={date} />
-            </div>
-        )
-    }
-}
-
-rootElement.render(<ClassApp />);
+rootElement.render(<HeaderClass />);
