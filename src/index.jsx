@@ -770,6 +770,22 @@ class ButtonComponent extends React.Component {
     }
 }
 
+const LogIn = () => {
+    return (
+        <div>
+            <h1>Please LogIn</h1>
+        </div>
+    )
+}
+
+const Welcome = () => {
+    return (
+        <div>
+            <h1>Welcome to 30 Days of ReactJS</h1>
+        </div>
+    )
+}
+
 class ConditionalRenderingApp extends React.Component {
     // initialising state object.
     state = {
@@ -792,10 +808,13 @@ class ConditionalRenderingApp extends React.Component {
             date: new Date().toLocaleDateString(),
         }
 
-        // conditional rendering state using ternary operator.
-        let status = this.state.loggedIn ? 
-            (<h1>Welcome to 30 Days of ReactJS</h1>) : 
-            (<h1>Please LogIn</h1>)
+        // conditional rendering state using ternary operator for JSX.
+        // let status = this.state.loggedIn ? 
+        //     (<h1>Welcome to 30 Days of ReactJS</h1>) : 
+        //     (<h1>Please LogIn</h1>)
+
+        // conditional rendering state using ternary operator for Components.
+        let status = this.state.loggedIn ? <Welcome /> : <LogIn />
 
         return (
             <div>
