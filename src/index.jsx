@@ -745,11 +745,109 @@ const rootElement = ReactDOM.createRoot(document.getElementById("root"));
 
 // Conditional rendering using ternary operator in ReactJS.
 
+// class HeaderComponent extends React.Component {
+//     render() {
+//         const {data} = this.props;
+//         const {welcome, title, subtitle, learner, date} = data;
+//         return(
+//             <header>
+//                 <h1>{welcome}</h1>
+//                 <h2>{title}</h2>
+//                 <h3>{subtitle}</h3>
+//                 <p>{learner.firstName} {learner.lastName}</p>
+//                 <small>{date}</small>
+//             </header>
+//         )
+//     }
+// }
+
+// class ButtonComponent extends React.Component {
+//     render() {
+//         const {text, onClick} = this.props;
+//         return (
+//             <button onClick={onClick}>{text}</button>
+//         )
+//     }
+// }
+
+// const LogIn = () => {
+//     return (
+//         <div>
+//             <h1>Please LogIn</h1>
+//         </div>
+//     )
+// }
+
+// const Welcome = () => {
+//     return (
+//         <div>
+//             <h1>Welcome to 30 Days of ReactJS</h1>
+//         </div>
+//     )
+// }
+
+// class ConditionalRenderingApp extends React.Component {
+//     // initialising state object.
+//     state = {
+//         loggedIn: false,
+//         techs: ["HTML", "CSS", "Javascript"],
+//     }
+
+//     // method for conditional rendering using toogle.
+//     handleLogin = () => {
+//         this.setState({
+//             loggedIn: !this.state.loggedIn,
+//         })
+//     }
+
+//     render() {
+//         const data = {
+//             welcome: "Welcome to 30 Days of ReactJS",
+//             title: "Getting started React",
+//             subtitle: "Javascript Library",
+//             learner: {firstName: "Jai", lastName: "Hind"},
+//             date: new Date().toLocaleDateString(),
+//         }
+
+//         // conditional rendering state using ternary operator for JSX.
+//         // let status = this.state.loggedIn ? 
+//         //     (<h1>Welcome to 30 Days of ReactJS</h1>) : 
+//         //     (<h1>Please LogIn</h1>)
+
+//         // conditional rendering state using ternary operator for Components.
+//         // let status = this.state.loggedIn ? <Welcome /> : <LogIn />
+
+//         // Destructering the state Object.
+//         const {loggedIn, techs} = this.state;
+
+//         let status = loggedIn ? <Welcome /> : <LogIn />
+
+//         return (
+//             <div>
+//                 <HeaderComponent data={data} />
+//                 {status}
+//                 <ButtonComponent text={this.state.loggedIn ? "LogOut" : "LogIn"} 
+//                     onClick={this.handleLogin}/>
+
+//                 {/*Rendering JSX Using && Operator
+//                     It renders Right Side Operand if the Left Side Operand is true
+//                 */
+//                 (techs.length === 3) && 
+//                     (<p>You Have all the prerequisite Courses to get Started ReactJS</p>)
+//                 }
+//                 {(!loggedIn) && 
+//                     (<p>Please LogIn to access more information of 30 Days of React</p>)}
+//             </div>
+//         )
+//     }
+// }
+
+// Full Conditional Rendering Practice.
 class HeaderComponent extends React.Component {
     render() {
         const {data} = this.props;
         const {welcome, title, subtitle, learner, date} = data;
-        return(
+        return (
             <header>
                 <h1>{welcome}</h1>
                 <h2>{title}</h2>
@@ -761,13 +859,39 @@ class HeaderComponent extends React.Component {
     }
 }
 
+// Sub Components of Main Component.
+class TechListComponent extends React.Component {
+    render() {
+        const {techs} = this.props;
+        const techList = techs.map((tech) => <li key={tech}>{tech}</li>)
+        return techList;
+    }
+}
+
 class ButtonComponent extends React.Component {
     render() {
-        const {text, onClick} = this.props;
+        const {onClick, text} = this.props;
+        return <button onClick={onClick}>{text}</button>
+    }
+}
+
+class MessageComponent extends React.Component {
+    render() {
+        const {message} = this.props;
         return (
-            <button onClick={onClick}>{text}</button>
+            <div>
+                <h1>{message}</h1>
+            </div>
         )
     }
+}
+
+const Welcome = () => {
+    return (
+        <div>
+            <h1>Welcome to 30 Days of <strong><em>React.JS</em></strong></h1>
+        </div>
+    )
 }
 
 const LogIn = () => {
@@ -778,65 +902,102 @@ const LogIn = () => {
     )
 }
 
-const Welcome = () => {
-    return (
-        <div>
-            <h1>Welcome to 30 Days of ReactJS</h1>
-        </div>
-    )
+class MainComponent extends React.Component {
+    render() {
+        const {techs, handleLogin, loggedIn, message, greetPeople, handleDate} = this.props;
+        console.log(message);
+
+        const status = loggedIn ? <Welcome /> : <LogIn />
+
+        return (
+            <main>
+                <div>
+                    <p>Prerequisites for getting started <strong><em>React.JS</em></strong></p>
+                    <ul>
+                        <TechListComponent techs={techs} />
+                    </ul>
+                    {
+                        techs.length === 3 && (<p>
+                            You Have all prerequisites courses to get started React
+                        </p>)
+                    }
+                </div>
+
+                <div>
+                    <ButtonComponent onClick={handleDate} text="ShowDate"/> {" "}
+                    <ButtonComponent onClick={greetPeople} text="GreetPeople"/>
+                    {
+                        !loggedIn && (<p>
+                            Please Login to access more information of 30 Days of ReactJS
+                        </p>)
+                    }
+                </div>
+
+                <div style={{margin: 30}}>
+                    <ButtonComponent onClick={handleLogin} text={loggedIn ? "LogOut" : "LogIn"}/>
+                    {status}
+                </div>
+
+                <MessageComponent message={message} />
+            </main>
+        )
+    }
+}
+
+class FooterComponent extends React.Component {
+    render() {
+        const {date} = this.props;
+        return (
+            <footer>
+                <p>Copyright &copy;{date.getFullYear()}</p>
+            </footer>
+        )
+    }
 }
 
 class ConditionalRenderingApp extends React.Component {
-    // initialising state object.
+    // creating state object.
     state = {
         loggedIn: false,
         techs: ["HTML", "CSS", "Javascript"],
+        message: "Click ShowTime or GreetPeople to change me",
+    }
+    
+    greetPeople = () => {
+        let message = "Welcome to 30 Days of React, 2023.";
+        this.setState({message: message});
     }
 
-    // method for conditional rendering using toogle.
+    handleDate = () => {
+        let message = new Date().toDateString();
+        this.setState({message: message});
+    }
+
     handleLogin = () => {
         this.setState({
-            loggedIn: !this.state.loggedIn,
+            loggedIn: (!this.state.loggedIn)
         })
     }
 
     render() {
+        const date = new Date();
+
         const data = {
             welcome: "Welcome to 30 Days of ReactJS",
             title: "Getting started React",
             subtitle: "Javascript Library",
             learner: {firstName: "Jai", lastName: "Hind"},
-            date: new Date().toLocaleDateString(),
+            date: date.toDateString(),
         }
 
-        // conditional rendering state using ternary operator for JSX.
-        // let status = this.state.loggedIn ? 
-        //     (<h1>Welcome to 30 Days of ReactJS</h1>) : 
-        //     (<h1>Please LogIn</h1>)
-
-        // conditional rendering state using ternary operator for Components.
-        // let status = this.state.loggedIn ? <Welcome /> : <LogIn />
-
-        // Destructering the state Object.
-        const {loggedIn, techs} = this.state;
-
-        let status = loggedIn ? <Welcome /> : <LogIn />
-
+        const techs = ["HTML", "CSS", "Javascript"];
         return (
             <div>
                 <HeaderComponent data={data} />
-                {status}
-                <ButtonComponent text={this.state.loggedIn ? "LogOut" : "LogIn"} 
-                    onClick={this.handleLogin}/>
-
-                {/*Rendering JSX Using && Operator
-                    It renders Right Side Operand if the Left Side Operand is true
-                */
-                (techs.length === 3) && 
-                    (<p>You Have all the prerequisite Courses to get Started ReactJS</p>)
-                }
-                {(!loggedIn) && 
-                    (<p>Please LogIn to access more information of 30 Days of React</p>)}
+                <MainComponent techs={techs} handleLogin={this.handleLogin} 
+                    loggedIn={this.state.loggedIn} message={this.state.message} 
+                    greetPeople={this.greetPeople} handleDate={this.handleDate} />
+                <FooterComponent date={date} />
             </div>
         )
     }
