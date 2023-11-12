@@ -418,11 +418,11 @@
 
 
 // States for Class Components in ReactJS.
-import React from "react";
-import ReactDOM from "react-dom/client";
-import reactLogo from "./images/reactLogo.png";
+// import React from "react";
+// import ReactDOM from "react-dom/client";
+// import reactLogo from "./images/reactLogo.png";
 
-const rootElement = ReactDOM.createRoot(document.getElementById("root"));
+// const rootElement = ReactDOM.createRoot(document.getElementById("root"));
 
 // class HeaderClass extends React.Component {
 //     // creating state obj in class component.
@@ -483,18 +483,213 @@ const rootElement = ReactDOM.createRoot(document.getElementById("root"));
 //     }
 // }
 
-// All Components together using state Object.
+// // All Components together using state Object.
+// class HeaderComponent extends React.Component {
+//     render() {
+//         const {data} = this.props;
+//         const {welcome, title, subtitle, learner, date} = data;
+//         return (
+//             <header>
+//                 <div>
+//                     <h1>{welcome}</h1>
+//                     <h2>{title}</h2>
+//                     <h3>{subtitle}</h3>
+//                     <p>{learner.firstName} {learner.lastName}</p>
+//                     <small>{date}</small>
+//                 </div>
+//             </header>
+//         )
+//     }
+// }
+
+// // subcomponents in Main Component.
+// class Techs extends React.Component {
+//     render() {
+//         const {techs} = this.props;
+//         const techList = techs.map((tech, index) => <li key={index}>{tech}</li>)
+//         return techList;
+//     }
+// }
+
+// class Learner extends React.Component {
+//     render() {
+//         const {learner} = this.props;
+//         const {firstName, lastName, image} = learner;
+//         return (
+//             <div>
+//                 <p>
+//                     My Name is <strong><em>{firstName} {lastName}</em></strong>.
+//                 </p>
+//                 <img src={image} alt="reactLogo" />
+//                 <br></br>
+//                 <small>{firstName} {lastName}</small>
+//             </div>
+//         )
+//     }
+// }
+
+// const buttonStyles = {
+//     backgroundColor: "lightgreen",
+//     borderRadius: 3,
+// }
+
+// class Button extends React.Component {
+//     render() {
+//         const {onClick, text, styles} = this.props;
+//         return (
+//             <button onClick={onClick} style={styles}>{text}</button>
+//         )
+//     }
+// }
+
+// class Count extends React.Component {
+//     render() {
+//         const {addOne, minusOne, count} = this.props;
+//         return <div>
+//             <h1>{count}</h1>
+//             <Button onClick={addOne} text={"+1"} styles={buttonStyles} />
+//             {" "}
+//             <Button onClick={minusOne} text={"-1"} styles={buttonStyles} />
+//         </div>
+//     }
+// }
+// class MainComponent extends React.Component {
+//     render() {
+//         const {techs, learner, greetPeople, handleTime, addOne, minusOne, count, changeBackground} = this.props;
+//         return (
+//             <main>
+//                 <div>
+//                     <p>Prerequisites for learning <strong><em>React.js</em></strong></p>
+//                     <ul>
+//                         <Techs techs={techs} />
+//                     </ul>
+//                 </div>
+//                 <Learner learner={learner} />
+//                 <Button onClick={greetPeople} text="Greet People" styles={buttonStyles}/>
+//                 {" "}
+//                 <Button onClick={handleTime} text="Handle Time" styles={buttonStyles}/>
+//                 {" "}
+//                 <Button onClick={changeBackground} text="Change Background" styles={buttonStyles} />
+//                 <div>
+//                     <Count addOne={addOne} minusOne={minusOne} count={count} />
+//                 </div>
+//             </main>
+//         )
+//     }
+// }
+
+// class FooterComponent extends React.Component {
+//     render() {
+//         const {date} = this.props;
+//         return (
+//             <footer>
+//                 <div>Copyright &copy;{date.getFullYear()}</div>
+//             </footer>
+//         )
+//     }
+// }
+
+// class App extends React.Component {
+//     showDate = (time) => {
+//         const months = [
+//             "January", "Febraury", "March", "April", "May", "June", "July", "August", "September",
+//             "Octobar", "November", "December",
+//         ]
+
+//         const month = months[time.getMonth()].slice(0, 3);
+//         const date = time.getDate();
+//         const year = time.getFullYear();
+//         return `${month} ${date}, ${year}`;
+//     }
+//     // Methods using as props value in Main component.
+//     greetPeople = () => {
+//         window.alert("Welcome to 30 Days of React.js");
+//     }
+
+//     handleTime = () => {
+//         window.alert(this.showDate(new Date()));
+//     }
+
+//     state = {
+//         count: 0,
+//         styles: {
+//             backgroundColor: "yellow",
+//             color: "red",
+//         }
+//     }
+
+//     addOne = () => {
+//         this.setState({count: this.state.count + 1})
+//     }
+
+//     minusOne = () => {
+//         this.setState({count: this.state.count - 1})
+//     }
+
+//     changeBackground = () => {}
+
+
+//     render() {
+//         // data variable Obj passing props value for Header component.
+//         const data = {
+//             welcome: "Welcome to 30 Days of ReactJS",
+//             title: "Getting started ReactJS",
+//             subtitle: "Javascript Library",
+//             learner: {firstName: "Jai", lastName: "Hind"},
+//             date: this.showDate(new Date()),
+//         }
+
+//         // date variable passing as props value for Footer component.
+//         const date = new Date();
+
+//         // some of variables passing as props value for Main component.
+//         const techs = ["HTML", "CSS", "Javascript"];
+//         const learner = {...data.learner, image: reactLogo};
+
+//         return (
+//             <div style={this.state.styles}>
+                
+//                 <HeaderComponent data={data} />
+//                 <MainComponent techs={techs} learner={learner} 
+//                     greetPeople={this.greetPeople} handleTime={this.handleTime}
+//                     addOne={this.addOne} minusOne={this.minusOne} count={this.state.count} 
+//                     changeBackground={this.changeBackground} />
+//                 <FooterComponent date={date} />
+//             </div>
+//         )
+//     }
+// }
+// rootElement.render(<App />);
+
+
+// CONDITIONAL RENDERING IN REACTJS.
+import React from "react";
+import ReactDOM from "react-dom/client";
+
+const rootElement = ReactDOM.createRoot(document.getElementById("root"));
+
+// Toggling the status of the user using button component.
+class ButtonComponent extends React.Component {
+    render() {
+        const {text, onClick} = this.props;
+
+        return (
+            <button onClick={onClick}>{text}</button>
+        )
+    }
+}
 class HeaderComponent extends React.Component {
     render() {
         const {data} = this.props;
         const {welcome, title, subtitle, learner, date} = data;
+        const {firstName, lastName} = learner;
         return (
             <header>
                 <div>
                     <h1>{welcome}</h1>
                     <h2>{title}</h2>
                     <h3>{subtitle}</h3>
-                    <p>{learner.firstName} {learner.lastName}</p>
+                    <p>{firstName} {lastName}</p>
                     <small>{date}</small>
                 </div>
             </header>
@@ -502,161 +697,48 @@ class HeaderComponent extends React.Component {
     }
 }
 
-// subcomponents in Main Component.
-class Techs extends React.Component {
-    render() {
-        const {techs} = this.props;
-        const techList = techs.map((tech, index) => <li key={index}>{tech}</li>)
-        return techList;
-    }
-}
 
-class Learner extends React.Component {
-    render() {
-        const {learner} = this.props;
-        const {firstName, lastName, image} = learner;
-        return (
-            <div>
-                <p>
-                    My Name is <strong><em>{firstName} {lastName}</em></strong>.
-                </p>
-                <img src={image} alt="reactLogo" />
-                <br></br>
-                <small>{firstName} {lastName}</small>
-            </div>
-        )
-    }
-}
-
-const buttonStyles = {
-    backgroundColor: "lightgreen",
-    borderRadius: 3,
-}
-
-class Button extends React.Component {
-    render() {
-        const {onClick, text, styles} = this.props;
-        return (
-            <button onClick={onClick} style={styles}>{text}</button>
-        )
-    }
-}
-
-class Count extends React.Component {
-    render() {
-        const {addOne, minusOne, count} = this.props;
-        return <div>
-            <h1>{count}</h1>
-            <Button onClick={addOne} text={"+1"} styles={buttonStyles} />
-            {" "}
-            <Button onClick={minusOne} text={"-1"} styles={buttonStyles} />
-        </div>
-    }
-}
-class MainComponent extends React.Component {
-    render() {
-        const {techs, learner, greetPeople, handleTime, addOne, minusOne, count, changeBackground} = this.props;
-        return (
-            <main>
-                <div>
-                    <p>Prerequisites for learning <strong><em>React.js</em></strong></p>
-                    <ul>
-                        <Techs techs={techs} />
-                    </ul>
-                </div>
-                <Learner learner={learner} />
-                <Button onClick={greetPeople} text="Greet People" styles={buttonStyles}/>
-                {" "}
-                <Button onClick={handleTime} text="Handle Time" styles={buttonStyles}/>
-                {" "}
-                <Button onClick={changeBackground} text="Change Background" styles={buttonStyles} />
-                <div>
-                    <Count addOne={addOne} minusOne={minusOne} count={count} />
-                </div>
-            </main>
-        )
-    }
-}
-
-class FooterComponent extends React.Component {
-    render() {
-        const {date} = this.props;
-        return (
-            <footer>
-                <div>Copyright &copy;{date.getFullYear()}</div>
-            </footer>
-        )
-    }
-}
-
-class App extends React.Component {
-    showDate = (time) => {
-        const months = [
-            "January", "Febraury", "March", "April", "May", "June", "July", "August", "September",
-            "Octobar", "November", "December",
-        ]
-
-        const month = months[time.getMonth()].slice(0, 3);
-        const date = time.getDate();
-        const year = time.getFullYear();
-        return `${month} ${date}, ${year}`;
-    }
-    // Methods using as props value in Main component.
-    greetPeople = () => {
-        window.alert("Welcome to 30 Days of React.js");
-    }
-
-    handleTime = () => {
-        window.alert(this.showDate(new Date()));
-    }
-
+class ConditionalRenderingApp extends React.Component {
     state = {
-        count: 0,
-        styles: {
-            backgroundColor: "yellow",
-            color: "red",
-        }
+        loggedIn: false,
     }
 
-    addOne = () => {
-        this.setState({count: this.state.count + 1})
+    handleLogin = () => {
+        this.setState({
+            loggedIn: !this.state.loggedIn,
+        })
     }
-
-    minusOne = () => {
-        this.setState({count: this.state.count - 1})
-    }
-
-    changeBackground = () => {}
-
 
     render() {
-        // data variable Obj passing props value for Header component.
         const data = {
             welcome: "Welcome to 30 Days of ReactJS",
-            title: "Getting started ReactJS",
-            subtitle: "Javascript Library",
+            title: "Getting started React",
+            subtitle: "Javascript Libraray",
             learner: {firstName: "Jai", lastName: "Hind"},
-            date: this.showDate(new Date()),
+            date: new Date().toLocaleDateString(),
         }
 
-        // date variable passing as props value for Footer component.
-        const date = new Date();
+        // conditional rendering using if else statements.
+        let status, text = null;
+        
 
-        // some of variables passing as props value for Main component.
-        const techs = ["HTML", "CSS", "Javascript"];
-        const learner = {...data.learner, image: reactLogo};
+        if (this.state.loggedIn) {
+            status = <h1>Welcome to 30 Days of ReactJS</h1>
+            text = "LogOut"
+        } else {
+            status = <h1>Please LogIn</h1>
+            text = "LogIn"
+        }
 
         return (
-            <div style={this.state.styles}>
-                
+             <div>
                 <HeaderComponent data={data} />
-                <MainComponent techs={techs} learner={learner} 
-                    greetPeople={this.greetPeople} handleTime={this.handleTime}
-                    addOne={this.addOne} minusOne={this.minusOne} count={this.state.count} 
-                    changeBackground={this.changeBackground} />
-                <FooterComponent date={date} />
-            </div>
+                {status}
+                <ButtonComponent text={text} onClick={this.handleLogin}/>
+             </div>
+            
         )
     }
 }
-rootElement.render(<App />);
+
+rootElement.render(<ConditionalRenderingApp />);
