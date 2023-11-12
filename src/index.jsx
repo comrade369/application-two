@@ -669,40 +669,114 @@ import ReactDOM from "react-dom/client";
 const rootElement = ReactDOM.createRoot(document.getElementById("root"));
 
 // Toggling the status of the user using button component.
-class ButtonComponent extends React.Component {
-    render() {
-        const {text, onClick} = this.props;
+// Conditional rendering using if else statements in ReactJS.
 
-        return (
-            <button onClick={onClick}>{text}</button>
-        )
-    }
-}
+// class ButtonComponent extends React.Component {
+//     render() {
+//         const {text, onClick} = this.props;
+
+//         return (
+//             <button onClick={onClick}>{text}</button>
+//         )
+//     }
+// }
+// class HeaderComponent extends React.Component {
+//     render() {
+//         const {data} = this.props;
+//         const {welcome, title, subtitle, learner, date} = data;
+//         const {firstName, lastName} = learner;
+//         return (
+//             <header>
+//                 <div>
+//                     <h1>{welcome}</h1>
+//                     <h2>{title}</h2>
+//                     <h3>{subtitle}</h3>
+//                     <p>{firstName} {lastName}</p>
+//                     <small>{date}</small>
+//                 </div>
+//             </header>
+//         )
+//     }
+// }
+
+
+// class ConditionalRenderingApp extends React.Component {
+//     state = {
+//         loggedIn: false,
+//     }
+
+//     handleLogin = () => {
+//         this.setState({
+//             loggedIn: !this.state.loggedIn,
+//         })
+//     }
+
+//     render() {
+//         const data = {
+//             welcome: "Welcome to 30 Days of ReactJS",
+//             title: "Getting started React",
+//             subtitle: "Javascript Libraray",
+//             learner: {firstName: "Jai", lastName: "Hind"},
+//             date: new Date().toLocaleDateString(),
+//         }
+
+//         // conditional rendering using if else statements.
+//         let status, text = null;
+        
+
+//         if (this.state.loggedIn) {
+//             status = <h1>Welcome to 30 Days of ReactJS</h1>
+//             text = "LogOut"
+//         } else {
+//             status = <h1>Please LogIn</h1>
+//             text = "LogIn"
+//         }
+
+//         return (
+//              <div>
+//                 <HeaderComponent data={data} />
+//                 {status}
+//                 <ButtonComponent text={text} onClick={this.handleLogin}/>
+//              </div>
+            
+//         )
+//     }
+// }
+
+// Conditional rendering using ternary operator in ReactJS.
+
 class HeaderComponent extends React.Component {
     render() {
         const {data} = this.props;
         const {welcome, title, subtitle, learner, date} = data;
-        const {firstName, lastName} = learner;
-        return (
+        return(
             <header>
-                <div>
-                    <h1>{welcome}</h1>
-                    <h2>{title}</h2>
-                    <h3>{subtitle}</h3>
-                    <p>{firstName} {lastName}</p>
-                    <small>{date}</small>
-                </div>
+                <h1>{welcome}</h1>
+                <h2>{title}</h2>
+                <h3>{subtitle}</h3>
+                <p>{learner.firstName} {learner.lastName}</p>
+                <small>{date}</small>
             </header>
         )
     }
 }
 
+class ButtonComponent extends React.Component {
+    render() {
+        const {text, onClick} = this.props;
+        return (
+            <button onClick={onClick}>{text}</button>
+        )
+    }
+}
 
 class ConditionalRenderingApp extends React.Component {
+    // initialising state object.
     state = {
         loggedIn: false,
     }
 
+    // method for conditional rendering using toogle.
     handleLogin = () => {
         this.setState({
             loggedIn: !this.state.loggedIn,
@@ -713,30 +787,23 @@ class ConditionalRenderingApp extends React.Component {
         const data = {
             welcome: "Welcome to 30 Days of ReactJS",
             title: "Getting started React",
-            subtitle: "Javascript Libraray",
+            subtitle: "Javascript Library",
             learner: {firstName: "Jai", lastName: "Hind"},
             date: new Date().toLocaleDateString(),
         }
 
-        // conditional rendering using if else statements.
-        let status, text = null;
-        
-
-        if (this.state.loggedIn) {
-            status = <h1>Welcome to 30 Days of ReactJS</h1>
-            text = "LogOut"
-        } else {
-            status = <h1>Please LogIn</h1>
-            text = "LogIn"
-        }
+        // conditional rendering state using ternary operator.
+        let status = this.state.loggedIn ? 
+            (<h1>Welcome to 30 Days of ReactJS</h1>) : 
+            (<h1>Please LogIn</h1>)
 
         return (
-             <div>
+            <div>
                 <HeaderComponent data={data} />
                 {status}
-                <ButtonComponent text={text} onClick={this.handleLogin}/>
-             </div>
-            
+                <ButtonComponent text={this.state.loggedIn ? "LogOut" : "LogIn"} 
+                    onClick={this.handleLogin}/>
+            </div>
         )
     }
 }
