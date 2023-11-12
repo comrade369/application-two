@@ -790,6 +790,7 @@ class ConditionalRenderingApp extends React.Component {
     // initialising state object.
     state = {
         loggedIn: false,
+        techs: ["HTML", "CSS", "Javascript"],
     }
 
     // method for conditional rendering using toogle.
@@ -814,7 +815,12 @@ class ConditionalRenderingApp extends React.Component {
         //     (<h1>Please LogIn</h1>)
 
         // conditional rendering state using ternary operator for Components.
-        let status = this.state.loggedIn ? <Welcome /> : <LogIn />
+        // let status = this.state.loggedIn ? <Welcome /> : <LogIn />
+
+        // Destructering the state Object.
+        const {loggedIn, techs} = this.state;
+
+        let status = loggedIn ? <Welcome /> : <LogIn />
 
         return (
             <div>
@@ -822,6 +828,15 @@ class ConditionalRenderingApp extends React.Component {
                 {status}
                 <ButtonComponent text={this.state.loggedIn ? "LogOut" : "LogIn"} 
                     onClick={this.handleLogin}/>
+
+                {/*Rendering JSX Using && Operator
+                    It renders Right Side Operand if the Left Side Operand is true
+                */
+                (techs.length === 3) && 
+                    (<p>You Have all the prerequisite Courses to get Started ReactJS</p>)
+                }
+                {(!loggedIn) && 
+                    (<p>Please LogIn to access more information of 30 Days of React</p>)}
             </div>
         )
     }
