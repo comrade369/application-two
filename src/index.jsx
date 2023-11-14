@@ -1,121 +1,39 @@
 // Gateway file for all Components to index.html file.
-import React from "react";
+import React, {Component} from "react";
 import ReactDOM from "react-dom/client";
-// import App from "./components/App";
 
-// EVENTS IN REACTJS.
-const EventApp = () => {
-    const welcome = () => {
-        return window.alert("Welcome to 30 Days of ReactJS");
-    }
+const rootElement = ReactDOM.createRoot(document.getElementById("root"));
 
-    return (
-        <button onClick={welcome}>click me</button>
-    )
-}
-
-// we cannot return false to prevent default behaviour in react like in html.
-class EventClassApp extends React.Component {
-    welcome = () => {
-        // return window.alert("Preventing default behaviour explicitly");
-        console.log("The link was clicked");
-        return window.alert("Preventing default behaviour of html elements explicitly");
-    }
-    render() {
-        return (
-            <a href="https://www.google.com" onClick={this.welcome}>click link</a>
-        )
-    }
-}
-
-// Different Events Handling of Mouse and Keyboard.
-class EventHandlingOfMouseAndKeyboardEvents extends React.Component {
-    // creating state object.
+// FORMS IN REACTJS.
+class FormsApp extends Component {
+    // Declaring state.
+    // Initial state.
     state = {
-        message: "",
         firstName: "",
-        key: "",
     }
 
-    // onClick Event Handle Function.
-    handleOnClick = (e) => {
-        // e gives the event object.
-        console.log(e);
-        // changing state 
-        this.setState({
-            message: "The onClick event is clicked."
-        })
-    }
-
-    handleOnMouseOver = (e) => {
-        console.log(e);
-        this.setState({
-            message: "The onMouseOver event is activated."
-        })
-    }
-
-    handleOnCopy = (e) => {
-        console.log(e);
-        this.setState({
-            message: "The onCopy event is activated."
-        })
-    }
-
-    handleOnKeyUp = (e) => {
-        console.log(e);
-        this.setState({
-            message: `${e.target.value} has been pressed, the keycode is ` + e.charcode,
-        })
-    }
-
-    handleOnBlur = (e) => {
-        console.log(e);
-        this.setState({
-            message: "The onBlur event is blurred the input field.",
-        })
-    }
-
+    // setting value of firstName in event obj target field value field using onChange event handler.
     handleOnChange = (e) => {
-        console.log(e);
-        console.log(this.state.value);
         this.setState({
             firstName: e.target.value,
-            message: e.target.value,
         })
     }
+
     render() {
+        /*
+            we inject this.state.firstName value inside input value attribute.
+        */
         return (
             <div>
-                <h1>Welcome to World of Events.</h1>
-
-                <h2>Which Event Activated: {this.state.message}</h2>
-
-                <button onClick={this.handleOnClick}>On Click Event</button>
-
-                <button onMouseOver={this.handleOnMouseOver}>Move Mouse On Me</button>
-
-                <p onCopy={this.handleOnCopy}>Check copyright permission by copying this text.</p>
-
-                <label>Test for on key press event.</label>
-                <input type="text" onKeyUp={this.handleOnKeyUp} />
-
-                <label htmlFor="">Test for on blur event</label>
-                <input type="text" onBlur={this.handleOnBlur} />
-
-                <form onSubmit={this.handleOnSubmit}>
-                    <div>
-                        <label htmlFor="firstName">
-                            first name:
-                        </label>
-                        <input type="text" name="firstName" onChange={this.handleOnChange} value={this.state.value} />
-                    </div>
-                    <input type="submit" value="submit" />
-                </form>
+                <label htmlFor="firstName">First Name:</label>
+                <input type="text" name="firstName" id="firstName" 
+                    placeholder="first name" value={this.state.firstName}
+                    onChange={this.handleOnChange} />
+                
+                <h1>Display what we write on input field: {this.state.firstName}</h1>
             </div>
         )
     }
 }
 
-
-const rootElement = ReactDOM.createRoot(document.getElementById("root"));
-rootElement.render(<EventHandlingOfMouseAndKeyboardEvents />);
+rootElement.render(<FormsApp />);
