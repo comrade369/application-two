@@ -37,6 +37,10 @@ class FormsAppWithDifferentFieldTypes extends Component {
             css: false,
             javascript: false,
         },
+        touched: {
+            firstName: false,
+            lastName: false,
+        }
 
     }
 
@@ -66,6 +70,27 @@ class FormsAppWithDifferentFieldTypes extends Component {
         console.log(e);
     }
 
+    handleOnBlur = (e) => {
+        const {name, value} = e.target;
+        this.setState({
+            touched: {...this.state.touched, [name]: value}
+        })        
+    }
+
+    validate = () => {
+        // object to collect error feedback and to display on the form.
+        const errors = {
+            firstName: "",
+        }
+
+        if ((this.state.touched.firstName && this.state.touched.firstName.length < 3) ||
+            (this.state.touched.firstName && this.state.touched.firstName.length > 12)) {
+                errors.firstName = "Firstname must be between 2 and 12"
+            } 
+        
+        return errors;
+    }
+
     handleOnSubmit = (e) => {
         e.preventDefault();
 
@@ -87,18 +112,23 @@ class FormsAppWithDifferentFieldTypes extends Component {
     }
     
     render() {
+        // accessing the state value by destructering the state.
+        const {firstName} = this.validate();
+
+        // the noValidate in form to stop the HTML5 built-in validation.
         
         return(
             <div>
                 <h2>Add Student</h2>
 
-                <form action="" onSubmit={this.handleOnSubmit} >
+                <form action="" onSubmit={this.handleOnSubmit} noValidate>
                     <div>
                         <div>
                             <label htmlFor="firstName">First Name: </label>
                             <input type="text" name="firstName" id="firstName"
-                                placeholder="First Name" value={this.state.firstName}
-                                onChange={this.handleOnChange} />
+                                placeholder="First Name" value={firstName}
+                                onChange={this.handleOnChange}
+                                onBlur={this.handleOnBlur} />
                         </div>
 
                         <div>
